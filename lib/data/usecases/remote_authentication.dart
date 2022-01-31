@@ -14,3 +14,15 @@ class RemoteAuthentication {
     await httpClient.request(url: url, method: 'post', body: params.toJson());
   }
 }
+
+class RemoteAuthenticationParams {
+  final String email;
+  final String password;
+
+  RemoteAuthenticationParams({
+    @required this.email,
+    @required this.password,
+  });
+
+  Map toJson() => {'email': email, 'password': password};
+}
