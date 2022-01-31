@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../domain/entities/entities.dart';
+import '../entities/entities.dart';
 
 abstract class Authentication {
   Future<AccountEntity> auth(AuthenticationParams params);
