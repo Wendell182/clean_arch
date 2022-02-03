@@ -1,51 +1,64 @@
 import 'package:flutter/material.dart';
 
+import '../components/components.dart';
+
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              child: Image(
-                image: AssetImage('lib/ui/assets/logo.png'),
-              ),
+            LoginHeader(),
+            Headline1(
+              text: 'login',
             ),
-            Text('Login'),
-            Form(
-                child: Column(
-              children: [
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    icon: Icon(Icons.email),
+            Padding(
+              padding: const EdgeInsets.all(32.0),
+              child: Form(
+                  child: Column(
+                children: [
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: 'Email',
+                      icon: Icon(
+                        Icons.email,
+                        color: Theme.of(context).primaryColorLight,
+                      ),
+                    ),
+                    keyboardType: TextInputType.emailAddress,
                   ),
-                  keyboardType: TextInputType.emailAddress,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Senha',
-                    icon: Icon(Icons.lock),
+                  Padding(
+                    padding: EdgeInsets.only(top: 8.0, bottom: 32.0),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'Senha',
+                        icon: Icon(
+                          Icons.lock,
+                          color: Theme.of(context).primaryColorLight,
+                        ),
+                      ),
+                      obscureText: true,
+                    ),
                   ),
-                  obscureText: true,
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text('Entrar'),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.person),
-                      Text('Criar conta'),
-                    ],
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text('Entrar'),
                   ),
-                )
-              ],
-            ))
+                  TextButton(
+                    onPressed: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.person),
+                        Text('Criar conta'),
+                      ],
+                    ),
+                  )
+                ],
+              )),
+            )
           ],
         ),
       ),
