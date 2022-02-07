@@ -43,7 +43,7 @@ class LoginPage extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(top: 8.0, bottom: 32.0),
                     child: StreamBuilder<String>(
-                        stream: presenter.passwordErrorController,
+                        stream: presenter.passwordErrorStream,
                         builder: (context, snapshot) {
                           return TextFormField(
                             decoration: InputDecoration(
@@ -60,10 +60,14 @@ class LoginPage extends StatelessWidget {
                           );
                         }),
                   ),
-                  ElevatedButton(
-                    onPressed: null,
-                    child: Text('Entrar'),
-                  ),
+                  StreamBuilder<bool>(
+                      stream: presenter.isFormValidStream,
+                      builder: (context, snapshot) {
+                        return ElevatedButton(
+                          onPressed: snapshot.data == true ? () {} : null,
+                          child: Text('Entrar'),
+                        );
+                      }),
                   TextButton(
                     onPressed: () {},
                     child: Row(
