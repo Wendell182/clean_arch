@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:manga_clean_arch/domain/helpers/helpers.dart';
+import 'package:manga_clean_arch/ui/pages/pages.dart';
 
 import '../../domain/usecases/usecases.dart';
 import '../protocols/protocols.dart';
@@ -20,13 +21,13 @@ class LoginState {
       password != null;
 }
 
-class StreamLoginPresenter {
+class StreamLoginPresenter implements LoginPresenter {
   final Validation validation;
   final Authentication authentication;
 
   var _controller = StreamController<LoginState>.broadcast();
 
-  var _state = LoginState();
+  final _state = LoginState();
 
   Stream<String> get emailErrorStream =>
       _controller?.stream?.map((state) => state.emailError)?.distinct();
