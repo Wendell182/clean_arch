@@ -14,7 +14,7 @@ class AuthenticationParams extends Equatable {
   @override
   List get props => [email, secret];
 
-  AuthenticationParams({
+  const AuthenticationParams({
     @required this.email,
     @required this.secret,
   });
