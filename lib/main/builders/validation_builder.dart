@@ -6,7 +6,7 @@ class ValidationBuilder {
   String fieldName;
   List<FieldValidation> validations = [];
 
-  ValidationBuilder._();""
+  ValidationBuilder._();
 
   static ValidationBuilder field(String fieldName) {
     _instance = ValidationBuilder._();
