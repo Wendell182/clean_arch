@@ -6,7 +6,7 @@ import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
 class LocalStorageAdapter implements SaveSecureCachStorage {
-  final FlutterSecureStorage secureStorage;
+  FlutterSecureStorage secureStorage;
 
   LocalStorageAdapter({@required this.secureStorage});
 
@@ -18,13 +18,19 @@ class LocalStorageAdapter implements SaveSecureCachStorage {
 
 class FlutterSecureStorageSpy extends Mock implements FlutterSecureStorage {}
 
-void main() {
-  test('Should call save secure with correct values', () async {
-    final secureStorage = FlutterSecureStorageSpy();
-    final sut = LocalStorageAdapter(secureStorage: secureStorage);
-    final key = faker.lorem.word();
-    final value = faker.guid.guid();
+LocalStorageAdapter sut;
+FlutterSecureStorageSpy secureStorage;
+String key;
+String value;
 
+void main() {
+  setUp(() {
+    secureStorage = FlutterSecureStorageSpy();
+    sut = LocalStorageAdapter(secureStorage: secureStorage);
+    key = faker.lorem.word();
+    value = faker.guid.guid();
+  });
+  test('Should call save secure with correct values', () async {
     await sut.saveSecure(key: key, value: value);
 
     verify(secureStorage.write(key: key, value: value));
