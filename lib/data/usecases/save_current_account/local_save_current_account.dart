@@ -2,7 +2,7 @@ import 'package:meta/meta.dart';
 
 import '../../../domain/entities/entities.dart';
 import '../../../domain/helpers/helpers.dart';
-import '../../../domain/usecases/save_currente_account.dart';
+import '../../../domain/usecases/save_current_account.dart';
 
 import '../../cache/cache.dart';
 

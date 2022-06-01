@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 import 'package:manga_clean_arch/domain/helpers/helpers.dart';
-import 'package:manga_clean_arch/domain/usecases/save_currente_account.dart';
+import 'package:manga_clean_arch/domain/usecases/save_current_account.dart';
 import 'package:manga_clean_arch/ui/pages/pages.dart';
 
 import '../../domain/usecases/usecases.dart';

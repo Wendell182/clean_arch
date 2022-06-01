@@ -1,7 +1,6 @@
 import 'package:faker/faker.dart';
 import 'package:manga_clean_arch/domain/entities/entities.dart';
 import 'package:manga_clean_arch/domain/helpers/helpers.dart';
-import 'package:manga_clean_arch/domain/usecases/save_currente_account.dart';
 import 'package:manga_clean_arch/domain/usecases/usecases.dart';
 import 'package:manga_clean_arch/presentation/presenters/presenters.dart';
 
@@ -35,6 +34,13 @@ void main() {
 
   void mockAuthentication() {
     mockAuthenticationCall().thenAnswer((_) async => AccountEntity(token));
+  }
+
+  PostExpectation mockSaveCurentAccountErrorCall() =>
+      when(saveCurrentAccount.save(any));
+
+  mockSaveCurentAccountError() {
+    mockSaveCurentAccountErrorCall().thenThrow(DomainError.unexpected);
   }
 
   void mockAuthenticationError(DomainError error) {
@@ -168,6 +174,18 @@ void main() {
     await sut.auth();
 
     verify(saveCurrentAccount.save(AccountEntity(token))).called(1);
+  });
+
+  test('should emit UnexpectedError if SaveCurentAccount fails ', () async {
+    mockSaveCurentAccountError();
+    sut.validateEmail(email);
+    sut.validatePassword(password);
+
+    expectLater(sut.isLoadingStream, emitsInOrder([true, false]));
+    sut.mainErrorStream.listen(expectAsync1((error) =>
+        expect(error, 'Algo errado aconteceu. Tente novamente em breve')));
+
+    await sut.auth();
   });
 
   test('should emit correct events on AUthentication success ', () async {
