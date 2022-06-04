@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
-import 'package:manga_clean_arch/domain/helpers/helpers.dart';
-import 'package:manga_clean_arch/domain/usecases/save_current_account.dart';
-import 'package:manga_clean_arch/ui/pages/pages.dart';
+import '../../domain/helpers/helpers.dart';
+import '../../ui/pages/pages.dart';
 
 import '../../domain/usecases/usecases.dart';
 import '../protocols/protocols.dart';
@@ -14,11 +13,12 @@ class GetxLoginPresenter extends GetxController implements LoginPresenter {
 
   String _email;
   String _password;
-  var _emailError = Rxn<String>();
-  var _passwordError = Rxn<String>();
-  var _mainError = Rxn<String>();
-  var _isFormValid = false.obs;
-  var _isLoading = false.obs;
+  final _emailError = Rxn<String>();
+  final _passwordError = Rxn<String>();
+  final _mainError = Rxn<String>();
+  final _navigateTo = Rxn<String>();
+  final _isFormValid = false.obs;
+  final _isLoading = false.obs;
 
   @override
   Stream<String> get emailErrorStream => _emailError.stream;
@@ -28,6 +28,9 @@ class GetxLoginPresenter extends GetxController implements LoginPresenter {
 
   @override
   Stream<String> get mainErrorStream => _mainError.stream;
+
+  @override
+  Stream<String> get navigateToStream => _navigateTo.stream;
 
   @override
   Stream<bool> get isFormValidStream => _isFormValid.stream;
@@ -63,14 +66,15 @@ class GetxLoginPresenter extends GetxController implements LoginPresenter {
 
   @override
   Future<void> auth() async {
-    _isLoading.value = true;
     try {
+      _isLoading.value = true;
       final account = await authentication
           .auth(AuthenticationParams(email: _email, secret: _password));
       await saveCurrentAccount.save(account);
+      _navigateTo.value = '/surveys';
     } on DomainError catch (error) {
       _mainError.value = error.description;
+      _isLoading.value = false;
     }
-    _isLoading.value = false;
   }
 }

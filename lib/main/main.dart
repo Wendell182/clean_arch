@@ -10,6 +10,8 @@ void main() {
 }
 
 class App extends StatelessWidget {
+  const App({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
@@ -21,6 +23,11 @@ class App extends StatelessWidget {
       initialRoute: '/login',
       getPages: [
         GetPage(name: '/login', page: makeLoginPage),
+        GetPage(
+            name: '/surveys',
+            page: () => Scaffold(
+                  body: Text('Enquetes'),
+                )),
       ],
     );
   }
