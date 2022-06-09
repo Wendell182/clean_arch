@@ -44,12 +44,14 @@ class GetxLoginPresenter extends GetxController implements LoginPresenter {
     @required this.saveCurrentAccount,
   });
 
+  @override
   void validateEmail(String email) {
     _email = email;
     _emailError.value = validation.validate(field: 'email', value: email);
     _validateForm();
   }
 
+  @override
   void validatePassword(String password) {
     _password = password;
     _passwordError.value =

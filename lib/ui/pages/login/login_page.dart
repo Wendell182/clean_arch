@@ -9,7 +9,7 @@ import 'login_presenter.dart';
 class LoginPage extends StatelessWidget {
   final LoginPresenter presenter;
 
-  LoginPage(this.presenter);
+  const LoginPage(this.presenter, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
